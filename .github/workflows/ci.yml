@@ -1,0 +1,21 @@
+name: ML Training CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build Docker image
+      run: |
+        docker build -t california-mlflow .
+
+    - name: Run training
+      run: |
+        docker run --rm california-mlflow
